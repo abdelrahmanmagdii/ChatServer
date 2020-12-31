@@ -6,21 +6,50 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientThread implements Runnable {
-    Socket socket;
-    String name;
-    public ClientThread(Socket socket) {
+    private Socket socket;
+
+
+
+    private String name;
+    private ChatServer server;
+    private PrintWriter writer;
+
+    private String incomingMsg;
+
+    public String getName() {
+        return name;
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public PrintWriter getWriter() {
+        return writer;
+    }
+
+    public ClientThread(ChatServer server, Socket socket) {
         this.socket = socket;
+        this.server = server;
     }
 
     @Override
     public void run() {
+        String msg;
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             name = in.readLine();
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            writer = new PrintWriter(socket.getOutputStream(), true);
             while (!socket.isClosed()) {
+                if(incomingMsg !=null)
+                {
+                    writer.println(incomingMsg);
+                    incomingMsg = null;
+                }
                 if (in.ready()) {
-                    System.out.println(name+" ==> "+in.readLine());
+                    msg = in.readLine();
+                    System.out.println(name+" ==> "+msg);
+                    server.broadcast(this, msg);
                 }
             }
         }
@@ -28,5 +57,10 @@ public class ClientThread implements Runnable {
         {
             ex.printStackTrace();
         }
+    }
+
+    public void receiveMsg(String s)
+    {
+        incomingMsg = s;
     }
 }

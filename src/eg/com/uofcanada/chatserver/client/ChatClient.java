@@ -15,12 +15,16 @@ public class ChatClient {
         if(name == null)
             name="No Name";
         try(Socket s = new Socket( HOST_NAME, PORT)){
-            InputStream in = s.getInputStream();
+            BufferedReader serverInput = new BufferedReader(new InputStreamReader(s.getInputStream()));
             PrintWriter out = new PrintWriter( s.getOutputStream(), true);
             out.println(name);
             BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
             while(!s.isClosed())
             {
+                if(serverInput.ready())
+                {
+                    System.out.println(serverInput.readLine());
+                }
                 if(userInput.ready())
                 {
                     out.println(userInput.readLine());
