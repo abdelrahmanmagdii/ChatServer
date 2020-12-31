@@ -1,5 +1,6 @@
 package eg.com.uofcanada.chatserver.client;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -10,9 +11,13 @@ public class ChatClient {
     final static int    PORT      = 8081;
 
     public static void main(String[] args) {
+        String name = JOptionPane.showInputDialog("Please enter your name");
+        if(name == null)
+            name="No Name";
         try(Socket s = new Socket( HOST_NAME, PORT)){
             InputStream in = s.getInputStream();
             PrintWriter out = new PrintWriter( s.getOutputStream(), true);
+            out.println(name);
             BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
             while(!s.isClosed())
             {
@@ -21,10 +26,6 @@ public class ChatClient {
                     out.println(userInput.readLine());
                 }
             }
-
-
-            s.close();
-
         }
         catch (Exception ex)
         {

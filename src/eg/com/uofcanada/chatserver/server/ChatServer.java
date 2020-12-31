@@ -10,7 +10,6 @@ public class ChatServer {
 
     public static void main(String[] args) {
         try(ServerSocket server = new ServerSocket( PORT)){
-
             while(true)
             {
                 Socket socket = server.accept();
@@ -18,8 +17,6 @@ public class ChatServer {
                 Thread thread = new Thread(clientThread);
                 thread.start();
             }
-
-
         }
         catch (Exception ex)
         {

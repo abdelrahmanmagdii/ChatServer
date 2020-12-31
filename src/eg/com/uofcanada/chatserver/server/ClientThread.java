@@ -7,6 +7,7 @@ import java.net.Socket;
 
 public class ClientThread implements Runnable {
     Socket socket;
+    String name;
     public ClientThread(Socket socket) {
         this.socket = socket;
     }
@@ -15,10 +16,11 @@ public class ClientThread implements Runnable {
     public void run() {
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            name = in.readLine();
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             while (!socket.isClosed()) {
                 if (in.ready()) {
-                    System.out.println(in.readLine());
+                    System.out.println(name+" ==> "+in.readLine());
                 }
             }
         }
