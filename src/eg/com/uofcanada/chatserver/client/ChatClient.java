@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class ChatClient {
-    final static String HOST_NAME = "http://127.0.0.1";
+    final static String HOST_NAME = "localhost";
     final static int    PORT      = 8081;
 
     public static void main(String[] args) {
