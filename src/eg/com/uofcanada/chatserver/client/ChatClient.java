@@ -16,9 +16,14 @@ public class ChatClient {
     private String name;
 
     public static void main(String[] args) {
-        String uid = JOptionPane.showInputDialog("Please enter UID");
+        String uid= JOptionPane.showInputDialog("Please enter uid");
         if(uid == null) {
-            JOptionPane.showMessageDialog(null, "UID cannot be empty");
+            JOptionPane.showMessageDialog(null, "Please enter a uid");
+            return;
+        }
+        if(uid.length() == 0) {
+            JOptionPane.showMessageDialog(null, "uid cannot be empty");
+            return;
         }
         ChatClient client = new ChatClient(uid);
     }
@@ -54,12 +59,18 @@ public class ChatClient {
         }
     }
 
+    //21 == a
+    //23 == b
+    //29 == c
     private boolean checkForPassword() {
         //https://dzone.com/articles/how-to-parse-json-data-from-a-rest-api-using-simpl
         try {
             String password = JOptionPane.showInputDialog("Please enter your password");
             if(password == null)
                 return false;
+            if(password.length() == 0) {
+                return false;
+            }
             URL url = new URL("http://ec2-3-19-14-4.us-east-2.compute.amazonaws.com/user?uid="+uid+"&password="+password);
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setRequestMethod("GET");
@@ -87,4 +98,5 @@ public class ChatClient {
 
         return true;
     }
+
 }

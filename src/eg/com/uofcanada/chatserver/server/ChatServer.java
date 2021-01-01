@@ -39,7 +39,8 @@ public class ChatServer {
             {
                 client.getWriter().println(from.getName()+" ==> "+msg);
             }
-                //
         }
     }
+
+
 }

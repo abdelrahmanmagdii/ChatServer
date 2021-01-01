@@ -14,7 +14,7 @@ public class ClientThread implements Runnable {
     private ChatServer server;
     private PrintWriter writer;
 
-    private String incomingMsg;
+
 
     public String getName() {
         return name;
@@ -41,11 +41,6 @@ public class ClientThread implements Runnable {
             name = in.readLine();
             writer = new PrintWriter(socket.getOutputStream(), true);
             while (!socket.isClosed()) {
-                if(incomingMsg !=null)
-                {
-                    writer.println(incomingMsg);
-                    incomingMsg = null;
-                }
                 if (in.ready()) {
                     msg = in.readLine();
                     System.out.println(name+" ==> "+msg);
@@ -59,8 +54,5 @@ public class ClientThread implements Runnable {
         }
     }
 
-    public void receiveMsg(String s)
-    {
-        incomingMsg = s;
-    }
+
 }
