@@ -1,0 +1,11 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'eg.com.uofcanada'
+version '0.0.1'
+
+application {
+    mainClass = 'eg.com.uofcanada.chatserver.client.ChatClient'
+}

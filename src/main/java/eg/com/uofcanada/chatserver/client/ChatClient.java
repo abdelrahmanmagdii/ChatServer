@@ -1,12 +1,12 @@
 package eg.com.uofcanada.chatserver.client;
 
 import javax.swing.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
-import java.util.Scanner;
 
 public class ChatClient {
     final static String HOST_NAME = "localhost";
